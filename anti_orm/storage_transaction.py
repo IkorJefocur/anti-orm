@@ -58,11 +58,11 @@ class StorageTransaction(MapAggregator):
 				mapping.release(mapping.key_of(value))
 		del self.existed[value]
 
-	def take_writable(self, value):
-		value = self.refresh(value)
+	def take_writable(self, entry):
+		value = self.refresh(entry)
 		if value is None:
 			for mapping in self.maps.values():
-				mapping.make_writable(mapping.key_of(value))
+				mapping.make_writable(mapping.key_of(entry))
 			return None
 
 		public_value = Cloneable.optional_clone(value)
