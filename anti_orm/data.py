@@ -28,8 +28,7 @@ class DataSource:
 
 	async def writable(self, obj):
 		await self.lock(obj).acquire()
-		self.storage.take_writable(obj)
-		return await self.restore(obj)
+		return self.storage.take_writable(await self.restore(obj))
 
 	async def restore_cached(self, obj):
 		pass
